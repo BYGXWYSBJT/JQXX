@@ -13,9 +13,11 @@ DEFAULT_CAMERA_CONFIG = {
 
 
 class Walker2dEnv(MujocoEnv, utils.EzPickle):
-    """
-    ### Description
+    # 需要添加的一行
+    super(Walker2dEnv, self).__init__(xml_file="walker2d.xml", frame_skip=4, observation_space=observation_space)
 
+    ### Description
+    """
     This environment builds on the hopper environment based on the work done by Erez, Tassa, and Todorov
     in ["Infinite Horizon Model Predictive Control for Nonlinear Periodic Tasks"](http://www.roboticsproceedings.org/rss07/p10.pdf)
     by adding another set of legs making it possible for the robot to walker forward instead of
@@ -27,7 +29,7 @@ class Walker2dEnv(MujocoEnv, utils.EzPickle):
     The goal is to make coordinate both sets of feet, legs, and thighs to move in the forward (right)
     direction by applying torques on the six hinges connecting the six body parts.
 
-    ### Action Space
+    Action Space
     The action space is a `Box(-1, 1, (6,), float32)`. An action represents the torques applied at the hinge joints.
 
     | Num | Action                                 | Control Min | Control Max | Name (in corresponding XML file) | Joint | Unit         |
